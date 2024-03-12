@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Website</title>
+    <style>
+        body {
+            background-image: url("bg.jpg");
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .piano {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: 20%;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .key {
+            width: 60px; /* Adjusted width */
+            height: 180px; /* Adjusted height */
+            margin: 0 1px; /* Adjusted margin */
+            border-radius: 0 0 8px 8px; /* Adjusted border-radius */
+            text-align: center;
+            line-height: 180px; /* Adjusted line-height */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease; /* Added transform transition */
+        }
+
+        .white-key {
+            background-color: #fff;
+            border: 1px solid #000;
+        }
+
+        .black-key {
+            background-color: #000;
+            border: 1px solid #000;
+            color: #fff;
+            width: 40px; /* Adjusted width */
+            height: 120px; /* Adjusted height */
+        }
+        .key-label{
+            color: rgb(246, 255, 0);
+        }
+        /* Define animation */
+        @keyframes keyPressAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(3px); } /* Adjusted push distance */
+            100% { transform: translateY(0); }
+        }
+
+        /* Apply animation to keys when active */
+        .key.active {
+            animation: keyPressAnimation 0.1s linear; /* Apply the animation */
+        }
+    </style>
+</head>
+<body>
+    <div class="piano">
+        <div class="key white-key" onclick="playSound('key01.mp3')" data-key="A">C<div class="key-label">A</div></div>
+        <div class="key black-key" onclick="playSound('key02.mp3')" data-key="S">C#<div class="key-label">S</S></div></div>
+        <div class="key white-key" onclick="playSound('key03.mp3')" data-key="D">D<div class="key-label">D</div></div>
+        <div class="key black-key" onclick="playSound('key04.mp3')" data-key="F">D#<div class="key-label">F</div></div>
+        <div class="key white-key" onclick="playSound('key05.mp3')" data-key="G">E<div class="key-label">G</div></div>
+        <div class="key white-key" onclick="playSound('key06.mp3')" data-key="H">F<div class="key-label">H</div></div>
+        <div class="key black-key" onclick="playSound('key07.mp3')" data-key="J">F#<div class="key-label">J</div></div>
+        <div class="key white-key" onclick="playSound('key08.mp3')" data-key="K">G<div class="key-label">K</div></div>
+        <div class="key black-key" onclick="playSound('key09.mp3')" data-key="L">G#<div class="key-label">L</div></div>
+        <div class="key white-key" onclick="playSound('key10.mp3')" data-key="Z">A<div class="key-label">Z</div></div>
+        <div class="key black-key" onclick="playSound('key11.mp3')" data-key="X">A#<div class="key-label">X</div></div>
+        <div class="key white-key" onclick="playSound('key12.mp3')" data-key="C">B<div class="key-label">C</div></div>
+        <div class="key white-key" onclick="playSound('key13.mp3')" data-key="V">C<div class="key-label">V</div></div>
+        <div class="key black-key" onclick="playSound('key14.mp3')" data-key="B">C#<div class="key-label">B</div></div>
+        <div class="key white-key" onclick="playSound('key15.mp3')" data-key="N">D<div class="key-label">N</div></div>
+        <div class="key black-key" onclick="playSound('key16.mp3')" data-key="M">D#<div class="key-label">M</div></div>
+        <div class="key white-key" onclick="playSound('key17.mp3')" data-key="Q">E<div class="key-label">Q</div></div>
+        <div class="key white-key" onclick="playSound('key18.mp3')" data-key="W">F<div class="key-label">W</div></div>
+        <div class="key black-key" onclick="playSound('key19.mp3')" data-key="E">F#<div class="key-label">E</div></div>
+        <div class="key white-key" onclick="playSound('key20.mp3')" data-key="R">G<div class="key-label">R</div></div>
+        <div class="key black-key" onclick="playSound('key21.mp3')" data-key="T">G#<div class="key-label">T</div></div>
+        <div class="key white-key" onclick="playSound('key22.mp3')" data-key="Y">A<div class="key-label">Y</div></div>
+        <div class="key black-key" onclick="playSound('key23.mp3')" data-key="U">A#<div class="key-label">U</div></div>
+        <div class="key white-key" onclick="playSound('key24.mp3')" data-key="I">B<div class="key-label">I</div></div>
+    <div class="key-label"></div></div>
+
+    <audio id="audio"></audio>
+
+    <script>
+        function playSound(soundFile) {
+            var audio = document.getElementById("audio");
+            audio.src = soundFile;
+            audio.play();
+        }
+
+        document.addEventListener('keydown', function(e) {
+            const key = document.querySelector(`[data-key="${e.key.toUpperCase()}"]`);
+            if (key) {
+                key.classList.add('active'); // Add 'active' class to trigger animation
+                playSound(key.getAttribute('onclick').split("'")[1]);
+            }
+        });
+
+        document.addEventListener('keyup', function(e) {
+            const key = document.querySelector(`[data-key="${e.key.toUpperCase()}"]`);
+            if (key) {
+                key.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
